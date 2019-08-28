@@ -1,0 +1,13 @@
+*.class
+.idea/
+*.iml
+target/
+*.log
+*.jar
+*.war
+*.project
+.svn/
+.settings/
+*.classpath
+*.project
+*.properties
