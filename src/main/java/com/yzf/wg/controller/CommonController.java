@@ -24,4 +24,8 @@ public class CommonController {
         return Mono.just("fallback");
     }
 
+    @RequestMapping("/hystrixfallback")
+    public Mono<String> hystrixfallback() {
+        return Mono.just("hystrixfallbackit");
+    }
 }
