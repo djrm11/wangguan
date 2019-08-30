@@ -43,8 +43,13 @@ public class GatewayRoutes {
                         .uri(httpUri))
                 .route("limit_route", r -> r
                         .host("*.limited.org").and().path("/anything/**")
-                        .filters(f -> f.requestRateLimiter(c -> c.setRateLimiter( new RedisRateLimiter(10,10))))
+                        .filters(f -> f.requestRateLimiter(c -> c.setRateLimiter( redisRateLimiter())))
                         .uri(httpUri))
                 .build();
+    }
+
+    @Bean
+    RedisRateLimiter redisRateLimiter() {
+        return new RedisRateLimiter(1, 2);
     }
 }
