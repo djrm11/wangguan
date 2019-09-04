@@ -1,3 +1,7 @@
+server:
+ port: 18080
+ tomcat:
+  uri-encoding: utf-8
 spring:
  cloud:
   gateway:
@@ -8,3 +12,19 @@ spring:
       - Path=/java/**
       filters:
       - StripPrefix=1
+    - id: redisLimit_route
+      uri: http://httpbin.org:80
+      predicates:
+       - Path=/limit/**
+#       - Host=**.limited.org
+      filters:
+       - name: RequestRateLimiter
+         args:
+          keys-resolver: '#{@hostAddrKeyResolver}'
+          redis-rate-limiter.replenishRate: 1
+          redis-rate-limiter.burstCapacity: 1
+       - StripPrefix=1
+ redis:
+  host: localhost
+  port: 6376
+  database: 0

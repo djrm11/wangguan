@@ -41,15 +41,21 @@ public class GatewayRoutes {
                 .route("hystrix_fallback_route", r -> r.host("*.hystrixfallback.org")
                         .filters(f -> f.hystrix(c -> c.setName("slowcmd").setFallbackUri("forward:/hystrixfallback")))
                         .uri(httpUri))
-                .route("limit_route", r -> r
-                        .host("*.limited.org").and().path("/anything/**")
-                        .filters(f -> f.requestRateLimiter(c -> c.setRateLimiter( redisRateLimiter())))
-                        .uri(httpUri))
+//                .route("limit_route", r -> r
+//                        .host("*.limited.org").and().path("/anything/**")
+//                        .filters(f -> f.requestRateLimiter(c -> c.setRateLimiter( redisRateLimiter())))
+//                        .uri(httpUri))
                 .build();
     }
 
+//    @Bean
+//    RedisRateLimiter redisRateLimiter() {
+//        return new RedisRateLimiter(1, 2);
+//    }
+
     @Bean
-    RedisRateLimiter redisRateLimiter() {
-        return new RedisRateLimiter(1, 2);
+    public HostAddrKeyResolver hostAddrKeyResolver() {
+        return new HostAddrKeyResolver();
     }
+
 }

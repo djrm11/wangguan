@@ -21,6 +21,7 @@ public class CommonController {
 
     @RequestMapping("/fallback")
     public Mono<String> fallback() {
+        log.info("fallback.");
         return Mono.just("fallback");
     }
 
