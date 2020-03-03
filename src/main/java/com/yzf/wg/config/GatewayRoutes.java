@@ -45,6 +45,11 @@ public class GatewayRoutes {
 //                        .host("*.limited.org").and().path("/anything/**")
 //                        .filters(f -> f.requestRateLimiter(c -> c.setRateLimiter( redisRateLimiter())))
 //                        .uri(httpUri))
+
+                .route("rewritepath_routebaidu", r ->
+                        r.path("/foobaidu/**").filters(f -> f.rewritePath("/foobaidu/(?<segment>.*)","/$\\{segment}"))
+                                .uri("http://www.baidu.com"))
+
                 .build();
     }
 
